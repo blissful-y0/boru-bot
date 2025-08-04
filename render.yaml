@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: boru-discord-bot
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: PORT
+        value: 10000

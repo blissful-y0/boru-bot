@@ -2,10 +2,14 @@
   "name": "boru-discord-bot",
   "version": "1.0.0",
   "description": "보루 디스코드 봇",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "ts-node index.ts",
+    "dev:watch": "nodemon --exec ts-node index.ts",
+    "deploy": "ts-node scripts/deploy-commands.ts",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [
     "discord",
@@ -16,10 +20,16 @@
   "dependencies": {
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.0.1",
+    "googleapis": "^155.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   },
   "type": "commonjs"
 }

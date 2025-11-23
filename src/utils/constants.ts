@@ -1,5 +1,5 @@
 export const MESSAGES = {
-  BOT_GREETING: "말 걸지 마라 인간",
+  BOT_GREETING: "포도는 바보입니까?",
   RATE_LIMIT_WARNING: "⏰ {time}초 후에 다시 시도해주세요!",
   COMMAND_ERROR: "명령어 처리 중 오류가 발생했습니다.",
   CHOOSE_ERROR:

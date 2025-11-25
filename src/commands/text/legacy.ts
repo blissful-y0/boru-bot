@@ -21,7 +21,7 @@ const legacyCommands: LegacyCommands = {
   "!일데센": {
     name: "일본 DC 용어 사전",
     async execute(message: Message): Promise<void> {
-      await message.({ content: JP_DC_WORDS });
+      await message.reply({ content: JP_DC_WORDS });
     },
   },
 };

@@ -4,8 +4,34 @@
       "Bash(npm install)",
       "Bash(git init:*)",
       "Bash(cp:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(uvx:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:etro.gg)",
+      "Bash(tree:*)",
+      "WebSearch",
+      "WebFetch(domain:xivgear.app)",
+      "WebFetch(domain:api.xivgear.app)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "mcp__serena__find_file",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__find_symbol",
+      "mcp__serena__read_file",
+      "mcp__serena__insert_after_symbol",
+      "mcp__serena__list_dir",
+      "mcp__serena__create_text_file",
+      "mcp__serena__replace_content",
+      "Bash(npm run type-check:*)",
+      "mcp__serena__replace_symbol_body",
+      "Bash(npm run deploy:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "serena"
+  ]
 }

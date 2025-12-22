@@ -45,4 +45,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
-*.claude
+
+# AI tools
+.claude/
+.serena/

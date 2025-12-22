@@ -1,5 +1,5 @@
 export const MESSAGES = {
-  BOT_GREETING: "포도는 바보입니까?",
+  BOT_GREETING: "방굽다",
   RATE_LIMIT_WARNING: "⏰ {time}초 후에 다시 시도해주세요!",
   COMMAND_ERROR: "명령어 처리 중 오류가 발생했습니다.",
   CHOOSE_ERROR:
@@ -13,58 +13,9 @@ export const COMMANDS = {
 \`/안녕\` - 인사하기
 \`/명령어\` - 명령어 목록 보기  
 \`/핑\` - 핑 확인하기
-\`/픽토맨서\` - 픽토맨서 정보 보기
-\`/암흑기사\` - 암흑기사 7.2 Gearsets 보기
-\`/무도가\` - 무도가 7.2 BIS 보기
-
+\`/bis [직업] [타입]\` - 직업별 BiS 장비 정보 보기
 **텍스트 명령어:**
 \`!골라줘 [옵션들]\` - 여러 옵션 중 랜덤 선택`,
-};
-
-export const DEFAULT_JOB_DATA = {
-  픽토맨서: {
-    title: "## 7.2 BIS",
-    links: [
-      {
-        name: "최종",
-        url: "https://xivgear.app/?page=sl%7Cc48f85d8-9b93-4f96-bfc4-1e0e30e98a8c",
-      },
-      {
-        name: "PROG",
-        url: "https://xivgear.app/?page=sl%7Cd968ecc8-019a-4ea4-976e-083f0b8b8df3",
-      },
-      {
-        name: "절 에덴",
-        url: "https://xivgear.app/?page=sl%7C6e51083b-3b75-4236-9036-c992ab490368",
-      },
-    ],
-  },
-  암흑기사: {
-    title: "# ⚔️ 암흑기사 7.2 Gearsets",
-    content: `
-## 🎯 BiS Gearsets
-**📊 전체 세트:** [All sets in one sheet](https://xivgear.app/?page=bis|drk|current)
-
-**⚡ 스킬 스피드별 세팅:**
-- **2.50 GCD:** [BiS 2.50](https://xivgear.app/?page=bis|drk|current&onlySetIndex=0)
-- **2.46 GCD:** [BiS 2.46](https://xivgear.app/?page=bis|drk|current&onlySetIndex=1)
-
-## 🔄 Prog Gearsets
-**📊 전체 세트:** [All prog sets](https://xivgear.app/?page=bis|drk|prog)
-
-**🛡️ 프로그 세팅:**
-- **2.50 with tome chest:** [Prog 2.50](https://xivgear.app/?page=bis|drk|prog&onlySetIndex=0)`,
-  },
-  무도가: {
-    title: "## 7.2 BIS",
-    links: [
-      { name: "최종", url: "https://bit.ly/7-20-DNC-Bis" },
-      {
-        name: "절 에덴",
-        url: "https://xivgear.app/?page=sl|744768db-304a-4003-8bec-9592902c242d",
-      },
-    ],
-  },
 };
 
 export const MENU_OPTIONS = [
@@ -1049,3 +1000,143 @@ export const JP_DC_WORDS = `### @PT/파티
 * **원거리 딜러**: 詩(음유시인), 機(기공사), 踊(무희)
 * **캐스터**: 黑(흑마도사), 召(소환사), 赤(적마도사)
 * **기타**: 靑(청마도사)`;
+
+// FFXIV 직업 한글명 → 영문 코드 매핑
+export const JOB_MAPPINGS: Record<string, string> = {
+  // 탱커
+  나이트: "pld",
+  전사: "war",
+  암흑기사: "drk",
+  건브레이커: "gnb",
+  // 힐러
+  백마도사: "whm",
+  학자: "sch",
+  점성술사: "ast",
+  현자: "sge",
+  // 근딜
+  몽크: "mnk",
+  용기사: "drg",
+  닌자: "nin",
+  사무라이: "sam",
+  리퍼: "rpr",
+  바이퍼: "vpr",
+  // 원딜
+  음유시인: "brd",
+  기공사: "mch",
+  무도가: "dnc",
+  // 캐스터
+  흑마도사: "blm",
+  소환사: "smn",
+  적마도사: "rdm",
+  픽토맨서: "pct",
+};
+
+// 영문 코드 → 한글명 역매핑
+export const JOB_NAMES_KR: Record<string, string> = {
+  pld: "나이트",
+  war: "전사",
+  drk: "암흑기사",
+  gnb: "건브레이커",
+  whm: "백마도사",
+  sch: "학자",
+  ast: "점성술사",
+  sge: "현자",
+  mnk: "몽크",
+  drg: "용기사",
+  nin: "닌자",
+  sam: "사무라이",
+  rpr: "리퍼",
+  vpr: "바이퍼",
+  brd: "음유시인",
+  mch: "기공사",
+  dnc: "무도가",
+  blm: "흑마도사",
+  smn: "소환사",
+  rdm: "적마도사",
+  pct: "픽토맨서",
+};
+
+// XIVGear API에서 지원하는 직업 목록
+export const XIVGEAR_AVAILABLE_JOBS = [
+  "pld",
+  "war",
+  "drk",
+  "gnb",
+  "drg",
+  "nin",
+  "sam",
+  "vpr",
+  "dnc",
+];
+
+// XIVGear API 미지원 직업용 Fallback URL
+// TODO: The Balance에서 가져온 링크로 채워주세요
+export const FALLBACK_BIS_URLS: Record<
+  string,
+  { current: string; prog: string }
+> = {
+  // 힐러
+  whm: {
+    current:
+      "https://xivgear.app/?page=sl|73551d94-354a-4e30-9205-5d52d2efaf3f",
+    prog: "https://xivgear.app/?page=sl|ab2dd908-c0e8-448f-bbe1-ab48db41458b",
+  },
+  sch: {
+    current:
+      "https://xivgear.app/?page=sl|1c97cbb6-a153-4573-baae-b336152db325",
+    prog: "https://xivgear.app/?page=sl|431e6073-3723-4da9-8078-25c0fcf679a5",
+  },
+  ast: {
+    current:
+      "https://xivgear.app/?page=sl|ef2cd3c9-7a44-42bb-9f8a-2815fa0e842d",
+    prog: "https://xivgear.app/?page=sl|7cfc7f90-3997-4081-a3b3-04f354fded9d",
+  },
+  sge: {
+    current:
+      "https://xivgear.app/?page=sl|f5aa8cde-86b5-4d2f-b104-1fd03ea859d2",
+    prog: "출발 Bis 정보가 없음 (실화냐)",
+  },
+  // 근딜
+  mnk: {
+    current:
+      "https://xivgear.app/?page=sl|6358840e-4f29-40b9-a412-fd48d24e7f29",
+    prog: "https://xivgear.app/?page=sl|9f0d8850-f504-4c06-a0e4-a8b572963528&onlySetIndex=7",
+  },
+  rpr: {
+    current:
+      "https://xivgear.app/?page=sl|2a20e2ef-8c94-4a57-912d-02f86543dd19",
+    prog: "https://xivgear.app/?page=sl|2a20e2ef-8c94-4a57-912d-02f86543dd19",
+  },
+  // 원딜
+  brd: {
+    current:
+      "https://xivgear.app/?page=sl|e7315100-1b7d-47ba-8158-14b26321d2d6",
+    prog: "https://xivgear.app/?page=sl|e7315100-1b7d-47ba-8158-14b26321d2d6",
+  },
+  mch: {
+    current:
+      "https://xivgear.app/?page=embed|sl|3dac7eb3-10e4-4ef3-9373-e1e1a78fcc9b",
+    prog: "https://xivgear.app/?page=embed|sl|5dea6a89-2d1d-483c-9b36-f2610ade678e&onlySetIndex=1",
+  },
+  // 캐스터
+  blm: {
+    current:
+      "https://xivgear.app/?page=sl|08698620-8f30-42df-b4c8-df525fe78a95&onlySetIndex=0",
+    prog: "https://xivgear.app/?page=sl|c855f5a3-0e3f-434c-8d1b-bb5fa2c5f989",
+  },
+  smn: {
+    current:
+      "https://xivgear.app/?page=sl|d5b4545d-6803-4b44-b826-6edfb3ca37a0",
+    prog: "https://xivgear.app/?page=sl|c7b75676-49bd-4ddc-ba7e-cf15b04f0474",
+  },
+  rdm: {
+    current:
+      "https://xivgear.app/?page=sl|eac536b5-e634-4823-9a22-aaf94a611593",
+    prog: "https://xivgear.app/?page=sl|d2270c94-6d4d-475a-8e14-01ffa5533bec",
+  },
+  pct: {
+    current:
+      "https://xivgear.app/?page=sl|4bd90c49-7a54-483f-9107-042c89c8c68f",
+    prog: "https://xivgear.app/?page=sl|d968ecc8-019a-4ea4-976e-083f0b8b8df3",
+  },
+};

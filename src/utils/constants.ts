@@ -1,5 +1,5 @@
 export const MESSAGES = {
-  BOT_GREETING: "테스트 중입니다",
+  BOT_GREETING: "방굽다",
   RATE_LIMIT_WARNING: "⏰ {time}초 후에 다시 시도해주세요!",
   COMMAND_ERROR: "명령어 처리 중 오류가 발생했습니다.",
   CHOOSE_ERROR:
@@ -1137,6 +1137,6 @@ export const FALLBACK_BIS_URLS: Record<
   pct: {
     current:
       "https://xivgear.app/?page=sl|4bd90c49-7a54-483f-9107-042c89c8c68f",
-    prog: "https://xivgear.app/?page=sl|91928150-d18a-4012-8be2-ba73f10e9cd5",
+    prog: "https://xivgear.app/?page=sl|d968ecc8-019a-4ea4-976e-083f0b8b8df3",
   },
 };

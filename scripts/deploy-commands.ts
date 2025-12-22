@@ -69,16 +69,8 @@ const commands = [
     description: "봇의 응답 속도 확인하기",
   },
   {
-    name: "픽토맨서",
-    description: "픽토맨서 7.2 BIS 정보 보기",
-  },
-  {
-    name: "암흑기사",
-    description: "암흑기사 7.2 Gearsets 정보 보기",
-  },
-  {
-    name: "무도가",
-    description: "무도가 7.2 BIS 정보 보기",
+    name: "bis",
+    description: "FFXIV 직업별 Best-in-Slot 장비 정보를 확인합니다",
   },
   bisCommand.toJSON(),
 ];
@@ -90,10 +82,10 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN!);
     console.log(`${commands.length}개의 슬래시 명령어를 등록하는 중...`);
 
     // 글로벌 명령어로 등록 (모든 서버에서 사용 가능)
-    const data = await rest.put(
+    const data = (await rest.put(
       Routes.applicationCommands(process.env.CLIENT_ID!),
       { body: commands }
-    ) as any[];
+    )) as any[];
 
     console.log(
       `${data.length}개의 슬래시 명령어가 성공적으로 등록되었습니다!`

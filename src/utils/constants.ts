@@ -1094,7 +1094,7 @@ export const FALLBACK_BIS_URLS: Record<
   sge: {
     current:
       "https://xivgear.app/?page=sl|f5aa8cde-86b5-4d2f-b104-1fd03ea859d2",
-    prog: "출발 Bis 정보가 없음 (실화냐)",
+    prog: "https://xivgear.app/?page=sl|b6800908-eedd-460f-a706-009a6a6051d5&selectedIndex=0",
   },
   // 근딜
   mnk: {
@@ -1138,5 +1138,18 @@ export const FALLBACK_BIS_URLS: Record<
     current:
       "https://xivgear.app/?page=sl|4bd90c49-7a54-483f-9107-042c89c8c68f",
     prog: "https://xivgear.app/?page=sl|d968ecc8-019a-4ea4-976e-083f0b8b8df3",
+  },
+  // XIVGear API에서 prog가 없는 직업들 (current는 API 사용)
+  gnb: {
+    current: "", // API 사용
+    prog: "https://xivgear.app/?page=sl|238433aa-1115-4510-8759-291234613a0a", // TODO: 시트 링크 추가
+  },
+  sam: {
+    current: "", // API 사용
+    prog: "https://xivgear.app/?page=bis|sam|current", // TODO: 시트 링크 추가
+  },
+  dnc: {
+    current: "", // API 사용
+    prog: "https://xivgear.app/?page=sl|535c4f8b-fcdc-4bc6-b586-69fc294e2485",
   },
 };

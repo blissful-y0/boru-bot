@@ -68,10 +68,6 @@ const commands = [
     name: "핑",
     description: "봇의 응답 속도 확인하기",
   },
-  {
-    name: "bis",
-    description: "FFXIV 직업별 Best-in-Slot 장비 정보를 확인합니다",
-  },
   bisCommand.toJSON(),
 ];
 

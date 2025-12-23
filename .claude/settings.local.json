@@ -26,7 +26,8 @@
       "Bash(npm run type-check:*)",
       "mcp__serena__replace_symbol_body",
       "Bash(npm run deploy:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   },

@@ -1,6 +1,7 @@
 import { Client, TextChannel } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
+import * as crypto from "crypto";
 import schedule from "node-schedule";
 import { Reminder, ReminderData } from "../types/reminder";
 import Logger from "../utils/logger";

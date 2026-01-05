@@ -17,7 +17,7 @@ export const data = new SlashCommandBuilder()
       .addStringOption((option) =>
         option
           .setName("시간")
-          .setDescription("예약 시간 (예: 2024-12-25 09:00 AM)")
+          .setDescription("예약 시간 (예: 2024-12-25 13:00)")
           .setRequired(true)
       )
       .addStringOption((option) =>
@@ -68,7 +68,7 @@ async function handleCreate(
   if (!scheduledAt) {
     await interaction.editReply({
       content:
-        "시간 형식이 올바르지 않습니다.\n예시: `2024-12-25 09:00 AM`\n형식: `YYYY-MM-DD HH:MM AM/PM` (KST 기준)",
+        "시간 형식이 올바르지 않습니다.\n예시: `2024-12-25 13:00`\n형식: `YYYY-MM-DD HH:MM` (24시간제, KST 기준)",
     });
     return;
   }
@@ -90,7 +90,7 @@ async function handleCreate(
   });
 
   await interaction.editReply({
-    content: `리마인더가 생성되었습니다!\n\n**ID:** \`${reminder.id.slice(0, 8)}...\`\n**채널:** <#${interaction.channelId}>\n**시간:** ${ReminderService.formatDateTime(scheduledAt)}\n**메시지:** ${message}${mentions ? `\n**멘션:** ${mentions}` : ""}`,
+    content: `리마인더가 생성되었습니다!\n\n**ID:** \`${reminder.id}\`\n**채널:** <#${interaction.channelId}>\n**시간:** ${ReminderService.formatDateTime(scheduledAt)}\n**메시지:** ${message}${mentions ? `\n**멘션:** ${mentions}` : ""}`,
   });
 }
 
@@ -131,7 +131,7 @@ async function handleList(
       const truncatedMessage =
         r.message.length > 50 ? r.message.slice(0, 50) + "..." : r.message;
       const ownerInfo = showAll ? `\n   등록자: <@${r.userId}>` : "";
-      return `**${i + 1}.** ID: \`${r.id.slice(0, 8)}...\`\n   채널: <#${r.channelId}>\n   시간: ${ReminderService.formatDateTime(date)}${ownerInfo}\n   메시지: ${truncatedMessage}`;
+      return `**${i + 1}.** ID: \`${r.id}\`\n   채널: <#${r.channelId}>\n   시간: ${ReminderService.formatDateTime(date)}${ownerInfo}\n   메시지: ${truncatedMessage}`;
     })
     .join("\n\n");
 
@@ -184,7 +184,8 @@ const reminderCommand = {
     const subcommand = interaction.options.getSubcommand();
 
     try {
-      await interaction.deferReply({ ephemeral: true });
+      const isCreate = subcommand === "생성";
+      await interaction.deferReply({ ephemeral: !isCreate });
 
       switch (subcommand) {
         case "생성":

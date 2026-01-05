@@ -4,6 +4,7 @@ import "dotenv/config";
 import DiscordService from "./services/discordService";
 import GoogleSheetsService from "./services/googleSheetsService";
 import HttpService from "./services/httpService";
+import ReminderService from "./services/reminderService";
 
 // Handlers
 import CommandHandler from "./handlers/commandHandler";
@@ -21,6 +22,7 @@ class BoruBot {
   private discordService: DiscordService;
   private sheetsService: GoogleSheetsService;
   private httpService: HttpService;
+  private reminderService: ReminderService;
   private cooldownManager: CooldownManager;
   private commandHandler: CommandHandler;
   private messageHandler: MessageHandler;
@@ -30,9 +32,10 @@ class BoruBot {
     this.discordService = new DiscordService();
     this.sheetsService = new GoogleSheetsService();
     this.httpService = new HttpService();
+    this.reminderService = new ReminderService();
     this.cooldownManager = new CooldownManager();
 
-    this.commandHandler = new CommandHandler(this.sheetsService);
+    this.commandHandler = new CommandHandler(this.sheetsService, this.reminderService);
     this.messageHandler = new MessageHandler(this.cooldownManager);
     this.eventHandler = new EventHandler(
       this.discordService,
@@ -50,6 +53,10 @@ class BoruBot {
 
       // Discord 봇 시작
       await this.discordService.initialize();
+
+      // 리마인더 서비스 초기화
+      this.reminderService.setClient(this.discordService.getClient());
+      this.reminderService.restoreReminders();
 
       Logger.info("보루 디스코드 봇이 성공적으로 시작되었습니다!");
     } catch (error) {

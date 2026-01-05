@@ -1,24 +1,29 @@
 import helloCommand from "../commands/slash/hello";
 import { commandsCommand, pingCommand } from "../commands/slash/utilities";
 import bisCommand from "../commands/slash/bis";
+import reminderCommand from "../commands/slash/reminder";
 import { ChatInputCommandInteraction, CommandInteraction } from "discord.js";
 import GoogleSheetsService from "../services/googleSheetsService";
+import ReminderService from "../services/reminderService";
 
 interface SlashCommand {
   name: string;
   description: string;
   execute: (
     interaction: ChatInputCommandInteraction,
-    sheetsService?: GoogleSheetsService
+    sheetsService?: GoogleSheetsService,
+    reminderService?: ReminderService
   ) => Promise<void>;
 }
 
 class CommandHandler {
   private sheetsService: GoogleSheetsService;
+  private reminderService: ReminderService;
   private slashCommands: Map<string, SlashCommand>;
 
-  constructor(sheetsService: GoogleSheetsService) {
+  constructor(sheetsService: GoogleSheetsService, reminderService: ReminderService) {
     this.sheetsService = sheetsService;
+    this.reminderService = reminderService;
     this.slashCommands = new Map();
     this.registerCommands();
   }
@@ -31,6 +36,9 @@ class CommandHandler {
 
     // BiS 통합 명령어
     this.slashCommands.set("bis", bisCommand);
+
+    // 리마인더 명령어
+    this.slashCommands.set("리마인더", reminderCommand);
   }
 
   async handleSlashCommand(
@@ -48,7 +56,7 @@ class CommandHandler {
     }
 
     try {
-      await command.execute(interaction, this.sheetsService);
+      await command.execute(interaction, this.sheetsService, this.reminderService);
     } catch (error) {
       console.error(`슬래시 명령어 처리 중 오류 (${commandName}):`, error);
 

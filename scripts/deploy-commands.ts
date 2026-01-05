@@ -32,6 +32,56 @@ const jobChoices = Object.entries(JOB_MAPPINGS).map(([krName, code]) => ({
   value: code,
 }));
 
+// /리마인더 명령어 빌더
+const reminderCommand = new SlashCommandBuilder()
+  .setName("리마인더")
+  .setDescription("리마인더를 관리합니다")
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("생성")
+      .setDescription("새 리마인더를 생성합니다")
+      .addStringOption((option) =>
+        option
+          .setName("시간")
+          .setDescription("예약 시간 (예: 2024-12-25 09:00 AM)")
+          .setRequired(true)
+      )
+      .addStringOption((option) =>
+        option
+          .setName("메시지")
+          .setDescription("리마인드 메시지 내용")
+          .setRequired(true)
+      )
+      .addStringOption((option) =>
+        option
+          .setName("멘션")
+          .setDescription("멘션 대상 (@everyone, @here, @사용자, @역할)")
+          .setRequired(false)
+      )
+  )
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("목록")
+      .setDescription("예약된 리마인더 목록을 조회합니다")
+      .addBooleanOption((option) =>
+        option
+          .setName("전체")
+          .setDescription("서버 전체 리마인더 보기 (관리자 전용)")
+          .setRequired(false)
+      )
+  )
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("취소")
+      .setDescription("리마인더를 취소합니다")
+      .addStringOption((option) =>
+        option
+          .setName("id")
+          .setDescription("취소할 리마인더 ID")
+          .setRequired(true)
+      )
+  );
+
 // /bis 명령어 빌더
 const bisCommand = new SlashCommandBuilder()
   .setName("bis")
@@ -69,6 +119,7 @@ const commands = [
     description: "봇의 응답 속도 확인하기",
   },
   bisCommand.toJSON(),
+  reminderCommand.toJSON(),
 ];
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN!);

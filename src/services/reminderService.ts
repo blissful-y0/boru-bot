@@ -62,7 +62,7 @@ class ReminderService {
   ): Reminder {
     const reminder: Reminder = {
       ...reminderData,
-      id: crypto.randomUUID(),
+      id: crypto.randomBytes(6).toString("base64url").slice(0, 8),
       createdAt: new Date().toISOString(),
       status: "pending",
     };
@@ -193,19 +193,15 @@ class ReminderService {
 
   static parseDateTime(dateTimeStr: string): Date | null {
     try {
-      const regex = /^(\d{4})-(\d{2})-(\d{2})\s+(\d{1,2}):(\d{2})\s*(AM|PM)$/i;
+      const regex = /^(\d{4})-(\d{2})-(\d{2})\s+(\d{1,2}):(\d{2})$/;
       const match = dateTimeStr.trim().match(regex);
 
       if (!match) return null;
 
-      const [, year, month, day, hours, minutes, period] = match;
-      let hour = parseInt(hours, 10);
+      const [, year, month, day, hours, minutes] = match;
+      const hour = parseInt(hours, 10);
 
-      if (period.toUpperCase() === "PM" && hour !== 12) {
-        hour += 12;
-      } else if (period.toUpperCase() === "AM" && hour === 12) {
-        hour = 0;
-      }
+      if (hour < 0 || hour > 23) return null;
 
       const dateStr = `${year}-${month}-${day}T${hour.toString().padStart(2, "0")}:${minutes}:00+09:00`;
       const date = new Date(dateStr);
@@ -222,14 +218,10 @@ class ReminderService {
     const year = kstDate.getUTCFullYear();
     const month = String(kstDate.getUTCMonth() + 1).padStart(2, "0");
     const day = String(kstDate.getUTCDate()).padStart(2, "0");
-    let hours = kstDate.getUTCHours();
+    const hours = String(kstDate.getUTCHours()).padStart(2, "0");
     const minutes = String(kstDate.getUTCMinutes()).padStart(2, "0");
-    const period = hours >= 12 ? "PM" : "AM";
 
-    if (hours > 12) hours -= 12;
-    if (hours === 0) hours = 12;
-
-    return `${year}-${month}-${day} ${hours}:${minutes} ${period} (KST)`;
+    return `${year}-${month}-${day} ${hours}:${minutes} (KST)`;
   }
 }
 

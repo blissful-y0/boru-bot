@@ -1142,11 +1142,11 @@ export const FALLBACK_BIS_URLS: Record<
   // XIVGear API에서 prog가 없는 직업들 (current는 API 사용)
   gnb: {
     current: "", // API 사용
-    prog: "https://xivgear.app/?page=sl|238433aa-1115-4510-8759-291234613a0a", // TODO: 시트 링크 추가
+    prog: "https://xivgear.app/?page=sl|238433aa-1115-4510-8759-291234613a0a",
   },
   sam: {
     current: "", // API 사용
-    prog: "https://xivgear.app/?page=bis|sam|current", // TODO: 시트 링크 추가
+    prog: "https://xivgear.app/?page=bis|sam|prog",
   },
   dnc: {
     current: "", // API 사용

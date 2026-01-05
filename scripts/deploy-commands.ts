@@ -43,7 +43,7 @@ const reminderCommand = new SlashCommandBuilder()
       .addStringOption((option) =>
         option
           .setName("시간")
-          .setDescription("예약 시간 (예: 2024-12-25 09:00 AM)")
+          .setDescription("예약 시간 (예: 2024-12-25 13:00)")
           .setRequired(true)
       )
       .addStringOption((option) =>
